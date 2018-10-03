@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://dashboard.dto.wildfly-swarm.demo.stepinto.io/dashboard"
+  targetNamespace="http://dashboard.dto.wildfly-swarm.demo.stepinto.io/dashboard"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../common/common.xsd"/>
+
+
+  <xsd:complexType name="HostType">
+    <xsd:sequence>
+      <xsd:element name="id" type="common:EntityIdType"/>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="operationSystem" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PlaceType">
+    <xsd:sequence>
+      <xsd:element name="id" type="common:EntityIdType"/>
+      <xsd:element name="placeName" type="xsd:string"/>
+      <xsd:element name="sector" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PlaceHostType">
+    <xsd:sequence>
+      <xsd:element name="id" type="common:EntityIdType"/>
+      <xsd:element name="placeName" type="xsd:string"/>
+      <xsd:element name="sector" type="xsd:string"/>
+      <xsd:element name="hostList" type="HostType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldPlaceType">
+    <xsd:sequence>
+      <xsd:element name="worldName" type="xsd:string"/>
+      <xsd:element name="placeList" type="PlaceType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldPlaceHostType">
+    <xsd:sequence>
+      <xsd:element name="worldName" type="xsd:string"/>
+      <xsd:element name="placeList" type="PlaceHostType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldPlaceResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="worldPlaces" type="WorldPlaceType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldPlaceHostResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="worldPlaceHosts" type="WorldPlaceHostType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpgradeHostResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="WorldPlaceResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="WorldPlaceResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="WorldPlaceHostResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="WorldPlaceHostResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpgradeHostResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="UpgradeHostResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+
+</xsd:schema>

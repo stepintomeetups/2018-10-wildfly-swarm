@@ -1,0 +1,55 @@
+logLevel = "DEBUG"
+defaultEntryPoints = ["http"]
+[file]
+  [backends]
+    [backends.host]
+      [backends.host.servers.server1]
+      url = "http://host-service:8080"
+      weight = 10
+    [backends.world]
+      [backends.world.servers.server1]
+      url = "http://world-service:8081"
+      weight = 10
+    [backends.story]
+      [backends.story.servers.server1]
+      url = "http://story-service:8083"
+      weight = 10
+    [backends.guest]
+      [backends.guest.servers.server1]
+      url = "http://guest-service:8082"
+      weight = 10
+    [backends.dashboard]
+      [backends.dashboard.servers.server1]
+      url = "http://dashboard-service:8085"
+      weight = 10
+  [frontends]
+    [frontends.frontend1]
+    backend = "host"
+      [frontends.frontend1.routes.test_1]
+      rule = "Host:demo.localhost"
+      [frontends.frontend1.routes.test_2]
+       rule = "PathPrefix:/rest/hostService/"
+    [frontends.frontend2]
+    backend = "world"
+      [frontends.frontend2.routes.test_1]
+      rule = "Host:demo.localhost"
+      [frontends.frontend2.routes.test_2]
+       rule = "PathPrefix:/rest/worldService/"
+    [frontends.frontend3]
+    backend = "story"
+      [frontends.frontend3.routes.test_1]
+      rule = "Host:demo.localhost"
+      [frontends.frontend3.routes.test_2]
+       rule = "PathPrefix:/rest/storyService/"
+    [frontends.frontend4]
+    backend = "guest"
+      [frontends.frontend4.routes.test_1]
+      rule = "Host:demo.localhost"
+      [frontends.frontend4.routes.test_2]
+       rule = "PathPrefix:/rest/guestService/"
+    [frontends.frontend5]
+    backend = "dashboard"
+      [frontends.frontend5.routes.test_1]
+      rule = "Host:demo.localhost"
+      [frontends.frontend5.routes.test_2]
+      rule = "PathPrefix:/rest/dashboardService/"

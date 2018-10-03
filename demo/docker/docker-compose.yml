@@ -1,0 +1,16 @@
+version: '3'
+networks:
+  wf-demo:
+services:
+  consul:
+    image: consul:0.9.3
+    ports:
+    - "8500:8500"
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: demo
+      POSTGRED_DB: demo
+      POSTGRES_PASSWORD: password

@@ -1,0 +1,19 @@
+service:
+  name: ${service.name}
+swarm:
+  port:
+    offset: ${port.offset}
+  logging:
+    root-logger:
+      level: INFO
+    loggers:
+      io.stepinto:
+        category: io.stepinto
+        level: TRACE
+  datasources:
+    data-sources:
+      demoDS:
+        driver-name: postgresql
+        connection-url: jdbc:postgresql://127.0.0.1:5432/demo
+        user-name: demo_${service.name}
+        password: demo_${service.name}

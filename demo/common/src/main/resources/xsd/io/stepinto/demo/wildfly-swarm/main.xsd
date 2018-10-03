@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://main.dto.wildfly-swarm.demo.stepinto.io/main"
+  targetNamespace="http://main.dto.wildfly-swarm.demo.stepinto.io/main"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://host.dto.wildfly-swarm.demo.stepinto.io/host" schemaLocation="host/host/host.xsd"/>
+  <xsd:import namespace="http://place.dto.wildfly-swarm.demo.stepinto.io/place" schemaLocation="world/place/place.xsd"/>
+  <xsd:import namespace="http://world.dto.wildfly-swarm.demo.stepinto.io/world" schemaLocation="world/world/world.xsd"/>
+  <xsd:import namespace="http://guest.dto.wildfly-swarm.demo.stepinto.io/guest" schemaLocation="guest/guest/guest.xsd"/>
+  <xsd:import namespace="http://story.dto.wildfly-swarm.demo.stepinto.io/story" schemaLocation="story/story/story.xsd"/>
+  <xsd:import namespace="http://dashboard.dto.wildfly-swarm.demo.stepinto.io/dashboard" schemaLocation="dashboard/dashboard.xsd"/>
+
+</xsd:schema>

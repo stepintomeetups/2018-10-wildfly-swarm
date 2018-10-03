@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://story.dto.wildfly-swarm.demo.stepinto.io/story"
+  targetNamespace="http://story.dto.wildfly-swarm.demo.stepinto.io/story"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../../common/common.xsd"/>
+
+
+  <xsd:complexType name="StoryType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="description" type="xsd:string"/>
+      <xsd:element name="active" type="xsd:boolean"/>
+      <xsd:element name="author" type="xsd:string"/>
+      <xsd:element name="worldId" type="common:EntityIdType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="StoryInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="StoryType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateStoryRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="story" type="StoryType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateStoryResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="story" type="StoryInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StoryResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="story" type="StoryInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="StoryListResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="list" type="StoryInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CreateStoryRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateStoryRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreateStoryResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateStoryResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="StoryResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="StoryResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="StoryListResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="StoryListResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://host.dto.wildfly-swarm.demo.stepinto.io/host"
+  targetNamespace="http://host.dto.wildfly-swarm.demo.stepinto.io/host"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../../common/common.xsd"/>
+
+  <xsd:simpleType name="OperationSystemType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="UNKNOWN"/>
+      <xsd:enumeration value="ALPHA"/>
+      <xsd:enumeration value="BETA"/>
+      <xsd:enumeration value="FINAL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="GenderType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MALE"/>
+      <xsd:enumeration value="FEMALE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="HostType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="operationSystem" type="OperationSystemType"/>
+      <xsd:element name="gender" type="GenderType"/>
+      <xsd:element name="consciousnessLevel" type="xsd:decimal"/>
+      <xsd:element name="storyThreadId" type="common:EntityIdType"/>
+      <xsd:element name="worldId" type="common:EntityIdType"/>
+      <xsd:element name="placeId" type="common:EntityIdType"/>
+      <xsd:element name="active" type="xsd:boolean" />
+      <xsd:element name="created" type="xsd:dateTime"/>
+      <xsd:element name="lastUpdated" type="xsd:dateTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="HostInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="HostType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateHostRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateHostResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HostResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HostListResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="list" type="HostInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHostRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="UpdateHostResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="host" type="HostInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CreateHostRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateHostRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreateHostResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateHostResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="HostResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="HostResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="HostListResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="HostListResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpdateHostRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="UpdateHostRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpdateHostResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="UpdateHostResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

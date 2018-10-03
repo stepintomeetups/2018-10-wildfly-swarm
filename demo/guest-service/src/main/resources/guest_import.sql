@@ -1,0 +1,2 @@
+insert into guest(id,name,place_id,first_visit_date,last_visit_date) values ('LOGAN','Logan','MARIPOSA_SALOON','1970-10-03 18:00:00.578000','1972-06-25 12:00:00.578000');
+insert into guest(id,name,place_id,first_visit_date,last_visit_date) values ('WILLIAM','William','MARIPOSA_SALOON','1972-06-25 12:00:00.578000',null);

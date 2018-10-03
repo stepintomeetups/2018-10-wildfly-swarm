@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  targetNamespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:simpleType name="EntityIdType">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="20"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="BaseRequestType">
+    <xsd:sequence>
+      <xsd:element name="requestId" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="BaseResponseType">
+    <xsd:sequence>
+      <xsd:element name="responseId" type="xsd:string"/>
+      <xsd:element name="serviceInstanceId" type="xsd:string"/>
+      <xsd:element name="hystrixResponse" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ErrorResponseType">
+    <xsd:sequence>
+      <xsd:element name="msg" type="xsd:string"/>
+      <xsd:element name="exceptionClass" type="xsd:string"/>
+      <xsd:element name="errorCode" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="ErrorResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="ErrorResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://world.dto.wildfly-swarm.demo.stepinto.io/world"
+  targetNamespace="http://world.dto.wildfly-swarm.demo.stepinto.io/world"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../../common/common.xsd"/>
+
+
+  <xsd:complexType name="WorldType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="WorldType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateWorldRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="world" type="WorldType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateWorldResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="world" type="WorldInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="world" type="WorldInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="WorldListResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="list" type="WorldInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CreateWorldRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateWorldRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreateWorldResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateWorldResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="WorldResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="WorldResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="WorldListResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="WorldListResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

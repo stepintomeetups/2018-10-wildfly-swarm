@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://guest.dto.wildfly-swarm.demo.stepinto.io/guest"
+  targetNamespace="http://guest.dto.wildfly-swarm.demo.stepinto.io/guest"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../../common/common.xsd"/>
+
+
+  <xsd:complexType name="GuestType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="placeId" type="common:EntityIdType"/>
+      <xsd:element name="firstVisitDate" type="xsd:dateTime"/>
+      <xsd:element name="lastVisitDate" type="xsd:dateTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GuestInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="GuestType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateGuestRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="guest" type="GuestType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreateGuestResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="guest" type="GuestInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GuestResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="guest" type="GuestInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="GuestListResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="list" type="GuestInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CreateGuestRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateGuestRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreateGuestResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreateGuestResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GuestResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="GuestResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GuestListResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="GuestListResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

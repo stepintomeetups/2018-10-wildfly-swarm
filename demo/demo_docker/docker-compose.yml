@@ -1,0 +1,72 @@
+version: '3'
+networks:
+  wf-demo:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+services:
+  consul:
+    image: consul:0.9.3
+    ports:
+      - "8600:8500"
+    networks:
+      - wf-demo
+  postgres:
+    image: postgres
+    networks:
+      wf-demo:
+        aliases:
+          - postgres
+    environment:
+      POSTGRES_USER: demo
+      POSTGRED_DB: demo
+      POSTGRES_PASSWORD: password
+    volumes:
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+  host-service:
+    image: frolvlad/alpine-oraclejdk8:slim
+    networks:
+      - wf-demo
+    command: java -Djava.net.preferIPv4Stack=true -Dswarm.bind.address=host-service -Xmx256m -jar /tmp/host-service.jar -Sdemo
+    volumes:
+      - "../host-service/target/host-service-swarm.jar:/tmp/host-service.jar"
+  world-service:
+    image: frolvlad/alpine-oraclejdk8:slim
+    networks:
+      - wf-demo
+    command: java -Djava.net.preferIPv4Stack=true -Dswarm.bind.address=world-service -Xmx256m -jar /tmp/world-service.jar -Sdemo
+    volumes:
+    - "../world-service/target/world-service-swarm.jar:/tmp/world-service.jar"
+  story-service:
+    image: frolvlad/alpine-oraclejdk8:slim
+    networks:
+      - wf-demo
+    command: java -Djava.net.preferIPv4Stack=true -Dswarm.bind.address=story-service -Xmx256m -jar /tmp/story-service.jar -Sdemo
+    volumes:
+    - "../story-service/target/story-service-swarm.jar:/tmp/story-service.jar"
+  guest-service:
+    image: frolvlad/alpine-oraclejdk8:slim
+    networks:
+      - wf-demo
+    command: java -Djava.net.preferIPv4Stack=true -Dswarm.bind.address=guest-service -Xmx256m -jar /tmp/guest-service.jar -Sdemo
+    volumes:
+    - "../guest-service/target/guest-service-swarm.jar:/tmp/guest-service.jar"
+  dashboard-service:
+    image: frolvlad/alpine-oraclejdk8:slim
+    networks:
+      - wf-demo
+    command: java -Djava.net.preferIPv4Stack=true -Dswarm.bind.address=dashboard-service -Xmx256m -jar /tmp/dashboard-service.jar -Sdemo
+    volumes:
+    - "../dashboard-service/target/dashboard-service-swarm.jar:/tmp/dashboard-service.jar"
+  traefik:
+    image: traefik:1.7-alpine
+    command: --api
+    networks:
+      - wf-demo
+    ports:
+      - "80:80"
+      - "8090:8080"
+    volumes:
+      - "./traefik.toml:/etc/traefik/traefik.toml"

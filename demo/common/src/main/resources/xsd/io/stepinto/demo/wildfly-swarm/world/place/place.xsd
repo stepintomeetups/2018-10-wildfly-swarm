@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:common="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+  xmlns="http://place.dto.wildfly-swarm.demo.stepinto.io/place"
+  targetNamespace="http://place.dto.wildfly-swarm.demo.stepinto.io/place"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:import namespace="http://common.dto.wildfly-swarm.demo.stepinto.io/common"
+              schemaLocation="../../common/common.xsd"/>
+
+  <xsd:complexType name="PlaceType">
+    <xsd:sequence>
+      <xsd:element name="worldId" type="common:EntityIdType"/>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="sector" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="PlaceInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="PlaceType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreatePlaceRequestType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseRequestType">
+        <xsd:sequence>
+          <xsd:element name="place" type="PlaceType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="CreatePlaceResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="place" type="PlaceInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PlaceResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="place" type="PlaceInfoType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="PlaceListResponseType">
+    <xsd:complexContent>
+      <xsd:extension base="common:BaseResponseType">
+        <xsd:sequence>
+          <xsd:element name="list" type="PlaceInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="CreatePlaceRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreatePlaceRequestType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreatePlaceResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="CreatePlaceResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="PlaceResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="PlaceResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="PlaceListResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="PlaceListResponseType"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
